@@ -1,0 +1,22 @@
+.code
+
+loop:
+    LDA x
+    SBI 1       ; decrement x
+    JC done     ; check x and jump if done
+    STA x       ; store x
+    LDA product
+    ADD y
+    JC error    ; check for overflow
+    STA product ; add y to product and store
+    JMP loop
+done:
+    LDA product
+    OUT         ; output product
+error:
+    HLT
+
+.data
+    x: 13
+    y: 17
+    product: 0

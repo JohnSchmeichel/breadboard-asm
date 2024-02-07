@@ -1,0 +1,36 @@
+; Outputs the Fibonacci sequence until a carry, at which point memory is reset
+; and the sequence starts again. The roles of next and previous switch so that
+; swaps or temp memory is not required.
+
+; Relies on reset data variables being no-ops to avoid a jump after reset.
+
+.code
+
+    LDA n   ; initial load
+
+loop:
+    ; register A contains current n
+    OUT
+    ADD p
+    JC reset
+    STA p
+
+    ; same as above but with n and p switched
+    OUT
+    ADD n
+    JC reset
+    STA n
+
+    JMP loop
+
+reset:
+    LDI 0
+    STA p   ; set p: 0
+    LDI 1
+    STA n   ; set n: 1
+
+; data variables are interpreted as NOP (high nibble 0b0000) to avoid a jump
+
+.data
+    p: 0
+    n: 1

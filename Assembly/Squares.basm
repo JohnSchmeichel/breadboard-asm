@@ -1,0 +1,25 @@
+; Computes increasing sequence of squares
+
+.code
+
+loop:
+    LDA x
+    OUT     ; load and output square
+    ADD d
+    STA x   ; store next square (or 0 when reach 256)
+    JC reset
+
+    LDA d
+    ADI 2
+    STA d   ; load and store next difference
+    JMP loop
+
+reset:
+    ; takes advantage that x has now been zeroed :D
+    ; LDI 1
+    ; STA d
+    ; JMP loop
+
+.data
+    d: 1
+    x: 0

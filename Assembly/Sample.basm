@@ -1,0 +1,9 @@
+.code
+    LDA x
+    ADD y
+    OUT
+    HLT
+
+.data
+    x: 27
+    y: 9

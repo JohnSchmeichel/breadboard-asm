@@ -1,0 +1,11 @@
+[*.cs]
+
+# Indentation and spacing
+indent_size = 4
+indent_style = spaces
+tab_witch = 4
+
+# dotnet coding conventions
+# dotnet_style_qualification_for_field = true
+dotnet_style_prefer_collection_expression = false
+csharp_style_prefer_primary_constructors = false

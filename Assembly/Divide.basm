@@ -1,0 +1,24 @@
+.code
+
+loop:
+    LDA x
+    SUB y   ; subtract divisor
+    JC done ; check if overflowed
+    STA x   ; store progress
+    LDA q
+    ADI 1   ; increment quotient
+    STA q   ; store quotient
+    JMP loop
+
+done:
+    ADD y   ; undo subtraction
+    ; JZ done ; fix zero case (but too many bytes)
+    STA x   ; store remainder
+    LDA q
+    OUT     ; output quotient
+    HLT
+
+.data
+    x: 0
+    y: 5
+    q: 0

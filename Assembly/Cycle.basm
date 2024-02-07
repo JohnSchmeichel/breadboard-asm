@@ -1,0 +1,18 @@
+.code
+
+up:
+    OUT
+    ADD x
+    JC down
+    JMP up
+down:
+    SUB x
+    OUT
+    JZ end
+    JMP down
+end:
+    HLT
+
+.data
+    x: 12
+    y: 18
