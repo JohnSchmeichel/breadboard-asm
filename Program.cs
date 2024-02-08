@@ -64,28 +64,9 @@ internal class Program
         Console.WriteLine();
     }
 
-    // TODO: Move to new file (output similar to assembly, but with annotations on kind, etc.)
     private static void OutputAssemblyTree(BoundAssembly assembly)
     {
-        foreach (var section in assembly.Sections)
-        {
-            Console.WriteLine($"{section.GetType()} : {section.Kind}");
-
-            Console.WriteLine($".{section.Name}");
-
-            foreach (var statement in section.Statements)
-            {
-                Console.WriteLine($"  {statement.GetType()} : {statement.Kind}");
-
-                if (statement is BoundLabel label)
-                    Console.WriteLine($"    {label.Name}:");
-                else if (statement is BoundInstruction instruction)
-                    Console.WriteLine($"      {instruction.Mnemonic} {instruction.Operand?.GetType()} {instruction.Operand}");
-                else if (statement is BoundVariable variable)
-                    Console.WriteLine($"    {variable.Name} {variable.Value}");
-            }
-        }
-
+        assembly.WriteTo(Console.Out);
         Console.WriteLine();
     }
 
