@@ -1,0 +1,36 @@
+; Euclid's algorithm for computing the greatest common divisor
+
+.code
+
+case1:          ; a > b
+    LDA a
+
+loop1:
+    SUB b
+    JC case2    ; b < a, so jump to case 2
+    JZ done     ; we're done!
+    STA a
+
+    ; Should be doing a jump to loop1 here since we know a < b is still true
+    ; but that requires an extra instruction :/ fall through to case 2 which
+    ; will immediate kick back up to case 1
+    ; JMP loop1   ; store current result and loop
+
+case2:          ; b > a
+    LDA b
+
+loop2:
+    SUB a
+    JC case1    ; a > a, so jump to case 1
+    JZ done     ; we're done!
+    STA b
+    JMP loop2   ; store current result and loop
+
+done:
+    LDA a
+    OUT
+    HLT
+
+.data
+    a: 216
+    b: 168
