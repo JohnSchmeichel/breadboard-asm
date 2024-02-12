@@ -21,14 +21,37 @@ internal class Program
     private static void Main(string[] args)
     {
         string program = @"";
+        bool verbose = false;
+        bool evaluate = false;
 
-        if (args.Length > 0)
-            program = File.ReadAllText(args[0]);
+        foreach (var arg in args)
+        {
+            switch (arg)
+            {
+                case "-v":
+                    verbose = true;
+                    break;
+                case "eval":
+                    evaluate = true;
+                    break;
+                default:
+                    if (!File.Exists(arg))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Invalid file or argument '{0}'", arg);
+                        Console.ResetColor();
+                        return;
+                    }
+                    program = File.ReadAllText(arg);
+                    break;
+            }
+        }
 
         // Parse program
         var syntaxTree = SyntaxTree.Parse(program);
 
-        OutputSyntaxTree(syntaxTree);
+        if (verbose)
+            OutputSyntaxTree(syntaxTree);
 
         // Check diagnostics
         if (syntaxTree.Diagnostics.Any())
@@ -39,23 +62,29 @@ internal class Program
         if (boundAssembly.Diagnostics.Any())
             OutputDiagnostics(boundAssembly.Diagnostics);
 
-        OutputAssemblyTree(boundAssembly);
+        if (verbose || evaluate)
+            OutputAssemblyTree(boundAssembly);
 
         var breadboardIsa = new BreadboardIsa();
         var assembly = Assembly.Create(syntaxTree);
 
-        var diagnostics = assembly.Assemble(breadboardIsa);
+        if (evaluate)
+        {
+            var result = assembly.Evaluate(breadboardIsa);
 
-        if (diagnostics.Any())
-            OutputDiagnostics(diagnostics);
+            if (result.Diagnostics.Any())
+                OutputDiagnostics(result.Diagnostics);
 
-        var result = assembly.Evaluate(breadboardIsa);
+            if (result.Value != null)
+                Console.WriteLine("Result: {0}", result.Value);
+        }
+        else
+        {
+            var diagnostics = assembly.Assemble(breadboardIsa);
 
-        if (result.Diagnostics.Any())
-            OutputDiagnostics(result.Diagnostics);
-        
-        if (result.Value != null)
-            Console.WriteLine("Result: {0}", result.Value);
+            if (diagnostics.Any())
+                OutputDiagnostics(diagnostics);
+        }
     }
 
     private static void OutputSyntaxTree(SyntaxTree syntaxTree)
