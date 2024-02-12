@@ -82,11 +82,9 @@ public class BreadboardIsa : InstructionSet
             case "JZ":
                 label = flagZero ? GetLabel(instruction) : null;
                 return InstructionResult.Jump(label);
-            case "OTI":
-                Console.WriteLine("Output: {0}", output = GetByte(instruction));
-                return default;
             case "OUT":
-                Console.WriteLine("Output: {0}", output = registerA);
+                output = registerA;                 // AO|OI
+                Console.WriteLine("Output: {0}", output);
                 return default;
             case "HLT":
                 Console.WriteLine("Memory:");

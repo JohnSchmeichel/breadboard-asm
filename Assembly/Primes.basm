@@ -1,19 +1,21 @@
 ; lolz
 
 .code
-    OTI 2
-    OTI 3
-    OTI 5
-    OTI 7
-    OTI 11
-    OTI 13
-    OTI 17
-    OTI 19
-    OTI 23
-    OTI 29
-    OTI 31
-    OTI 37
-    OTI 41
-    OTI 43
-    OTI 47
-    OTI 53
+    LDI 2
+    OUT
+    LDI 3
+    OUT
+    LDI 5
+    OUT
+    LDI 7
+    OUT
+    LDI 11
+    OUT
+    LDI 13
+    OUT
+    LDA n17
+    OUT
+    HLT
+
+.data
+    n17: 17
