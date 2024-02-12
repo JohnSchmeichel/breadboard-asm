@@ -20,7 +20,8 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        string program = @"";
+        string program = @"NOP";
+        SourceText? text = null;
         bool verbose = false;
         bool evaluate = false;
 
@@ -42,13 +43,13 @@ internal class Program
                         Console.ResetColor();
                         return;
                     }
-                    program = File.ReadAllText(arg);
+                    text = SourceText.FromFile(arg);
                     break;
             }
         }
 
         // Parse program
-        var syntaxTree = SyntaxTree.Parse(program);
+        var syntaxTree = SyntaxTree.Parse(text ?? new SourceText(program));
 
         if (verbose)
             OutputSyntaxTree(syntaxTree);
@@ -75,8 +76,7 @@ internal class Program
             if (result.Diagnostics.Any())
                 OutputDiagnostics(result.Diagnostics);
 
-            if (result.Value != null)
-                Console.WriteLine("Result: {0}", result.Value);
+            Console.WriteLine("Result: {0}", result.Value ?? "<null>");
         }
         else
         {

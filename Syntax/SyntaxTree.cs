@@ -15,13 +15,12 @@ public sealed class SyntaxTree
     public AssemblySyntax Root { get; }
     public IEnumerable<Diagnostic> Diagnostics { get; }
 
-    public static SyntaxTree Parse(string text)
+    public static SyntaxTree Parse(SourceText text)
     {
-        var sourceText = new SourceText(text);
-        var parser = new Parser(sourceText);
+        var parser = new Parser(text);
         var root = parser.Parse();
         var diagnostics = parser.Diagnostics.ToImmutableArray();
 
-        return new SyntaxTree(sourceText, root, diagnostics);
+        return new SyntaxTree(text, root, diagnostics);
     }
 }

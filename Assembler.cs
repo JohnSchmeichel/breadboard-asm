@@ -120,8 +120,6 @@ public sealed class Assembler
             Console.WriteLine($"    {address:b4} {value:b8} ; {variable.Name}: {variable.Value ?? 0}");
         }
 
-        Console.WriteLine();
-
         string GetNumber(BoundNumber number)
         {
             const byte MaxValue = 0xF;

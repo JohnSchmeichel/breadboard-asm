@@ -13,6 +13,7 @@ internal sealed class BoundAssembly
         Symbols = symbols;
     }
 
+    public SourceText Text => Syntax.Text;
     public AssemblySyntax Syntax { get; }
     public IEnumerable<Diagnostic> Diagnostics { get; }
     public ImmutableArray<BoundSection> Sections { get; }

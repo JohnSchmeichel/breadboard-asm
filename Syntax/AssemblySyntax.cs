@@ -14,4 +14,5 @@ public class AssemblySyntax : SyntaxNode
     public override SourceLocation Location { get; }
 
     public ImmutableArray<SectionSyntax> Sections { get; }
+    public SourceText Text => Location.Text;
 }

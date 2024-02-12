@@ -16,6 +16,15 @@ internal static class BoundAssemblyWriter
 
     private static void WriteAssembly(TextWriter writer, BoundAssembly assembly)
     {
+        var source = assembly.Text.FileName ?? "[Assembly]";
+        
+        SetForeground(writer, ConsoleColor.DarkGray);
+        writer.Write(source);
+        writer.Write(':');
+
+        ResetColor(writer);
+        writer.WriteLine();
+
         foreach (var section in assembly.Sections)
         {
             WriteSection(writer, section);
@@ -105,7 +114,7 @@ internal static class BoundAssemblyWriter
     private static void WriteVariable(TextWriter writer, BoundVariable variable)
     {
         writer.Write("    ");
-        SetForeground(writer, ConsoleColor.White);
+        SetForeground(writer, ConsoleColor.Gray);
         writer.Write(variable.Name);
 
         if (variable.Value != null)
