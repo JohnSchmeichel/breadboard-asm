@@ -31,7 +31,7 @@ public class BreadboardIsa : InstructionSet
         BoundVariable var;
         BoundLabel? label;
 
-        switch (instruction.Mnemonic)
+        switch (instruction.Mnemonic.ToUpperInvariant())
         {
             case "NOP":
                 return default;
@@ -92,7 +92,6 @@ public class BreadboardIsa : InstructionSet
                     Console.WriteLine("  {0}: {1}", variable.Key.Name, variable.Value);
                 return InstructionResult.Halt(output);
             default:
-                Console.WriteLine($"Unknown mnemonic {instruction.Mnemonic}");
                 return InstructionResult.Invalid(instruction);
         }
 

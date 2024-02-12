@@ -19,6 +19,7 @@ public readonly struct SourceLocation
     public SourceText Text { get; }
     public Range Range { get; }
     public ReadOnlySpan<char> Span => Text.AsSpan(Range);
+    public char Char => Text[Range.Start];
 
     public Index Start => Range.Start;
     public Index End => Range.End;

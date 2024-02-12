@@ -21,4 +21,4 @@ more:
 .data
     x: 3
     y: 5
-    product: 0xCC";
+    product: 0xCC;

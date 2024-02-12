@@ -87,8 +87,8 @@ internal class Lexer
                 }
                 else
                 {
-                    position++;
-                    diagnostics.ReportBadCharacter(text[start..position], Current);
+                    var location = text[start..++position];
+                    diagnostics.ReportBadCharacter(location, location.Char);
                 }
                 break;
         }
