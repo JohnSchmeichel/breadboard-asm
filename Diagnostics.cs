@@ -73,4 +73,10 @@ public sealed class Diagnostics : IEnumerable<Diagnostic>
         var message = $"The assembly is too long to fit into memory; assembly is '{instructionBytes}' bytes but memory is '{memoryBytes}'.";
         Report(location, message);
     }
+
+    internal void ReportNumberTruncated(SourceLocation location, int value, int maximum)
+    {
+        var message = $"The value '{value}' is larger than 0x{maximum:X2} and will be truncated.";
+        Report(location, message);
+    }
 }

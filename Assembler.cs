@@ -99,9 +99,9 @@ public sealed class Assembler
             object? value = instruction.Operand switch
             {
                 // TODO: error on truncation
-                BoundNumber number => ((int)number.Value & 0xF).ToString("b4"),
-                BoundVariable variable => variables[variable].ToString("b4"),
-                BoundLabel label => labels[label].ToString("b4"),
+                BoundNumber number => GetNumber(number),
+                BoundVariable variable => GetVariable(variable),
+                BoundLabel label => GetLabel(label),
                 null => "0000",
                 _ => "????"
             };
@@ -121,5 +121,26 @@ public sealed class Assembler
         }
 
         Console.WriteLine();
+
+        string GetNumber(BoundNumber number)
+        {
+            const byte MaxValue = 0xF;
+            int value = number.Value;
+
+            if (value > MaxValue)
+                diagnostics.ReportNumberTruncated(number.Syntax.Location, value, MaxValue);
+
+            return (value & MaxValue).ToString("b4");
+        }
+
+        string GetVariable(BoundVariable variable)
+        {
+            return variables[variable].ToString("b4");
+        }
+
+        string GetLabel(BoundLabel label)
+        {
+            return labels[label].ToString("b4");
+        }
     }
 }

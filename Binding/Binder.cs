@@ -145,7 +145,7 @@ internal sealed class Binder
     private static BoundNode BindNumber(SyntaxToken syntax)
     {
         return syntax.Value is not null ?
-            new BoundNumber(syntax, syntax.Value) :
+            new BoundNumber(syntax, (int)syntax.Value) :
             new BoundError(syntax);
     }
 }

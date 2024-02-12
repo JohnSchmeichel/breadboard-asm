@@ -124,7 +124,7 @@ public class BreadboardIsa : InstructionSet
 
         static byte GetByte(BoundInstruction instruction)
         {
-            return (byte)(int)((BoundNumber)instruction.Operand!).Value;
+            return (byte)((BoundNumber)instruction.Operand!).Value;
         }
 
         static BoundLabel GetLabel(BoundInstruction instruction)
