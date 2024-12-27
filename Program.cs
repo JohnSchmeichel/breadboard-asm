@@ -16,6 +16,14 @@ loop:
     x: 27
 */
 
+// TODO:
+//  - Finish code cleanup and formatting
+//      * BoundVariable get raw value or BoundNumber?
+//      * Report line and character number instead of positions
+//  - Generalize assembler and support variable width instructions
+//      * Does binding accept the instruction set?
+//  - 
+
 internal class Program
 {
     private static void Main(string[] args)
