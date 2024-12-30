@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Check if at least one argument is provided
+if [ "$#" -lt 1 ]; then
+    echo "Usage: basm <path-to-assembly-file> [options]"
+    exit 1
+fi
+
+# Run the dotnet command with the provided arguments
+dotnet run --project src/breadboard-asm.csproj -- "$@"
