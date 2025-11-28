@@ -104,6 +104,8 @@ public static class SyntaxTreeWriter
         if (token?.Value != null)
         {
             writer.Write(" ");
+
+            SetForeground(writer, token.Kind == SyntaxKind.NumberToken ? ConsoleColor.Magenta : ConsoleColor.Gray);
             writer.Write(token.Value);
         }
 

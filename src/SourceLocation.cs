@@ -6,6 +6,8 @@ public readonly struct SourceLocation
     {
         Text = text;
         Range = range;
+
+        (Line, Offset) = text.GetLineAndOffset(this);
     }
 
     public static SourceLocation From(SourceLocation start, SourceLocation end)
@@ -23,6 +25,9 @@ public readonly struct SourceLocation
 
     public Index Start => Range.Start;
     public Index End => Range.End;
+
+    public int Line { get; }
+    public int Offset { get; }
 
     public override string ToString() => Span.ToString();
 }

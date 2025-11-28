@@ -105,8 +105,10 @@ internal class Program
 
         foreach (var diagnostic in diagnostics)
         {
-            var range = diagnostic.Location.Range;
-            Console.WriteLine($"error: ({range.Start.Value}, {range.End.Value}): {diagnostic.Message}");
+            var location = diagnostic.Location;
+            var filePath = Path.GetRelativePath(Environment.CurrentDirectory, location.Text.FilePath ?? "[assembly.basm]");
+
+            Console.WriteLine($"{filePath}:{location.Line}:{location.Offset}: error: {diagnostic.Message}");
         }
 
         Console.ResetColor();
