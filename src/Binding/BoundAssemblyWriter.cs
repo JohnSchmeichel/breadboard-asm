@@ -102,7 +102,7 @@ internal static class BoundAssemblyWriter
                     break;
                 default:
                     SetForeground(writer, ConsoleColor.Red);
-                    writer.Write("<unknown operand>: {0}", instruction.Operand.Kind);
+                    writer.Write("<unknown operand>: {0}", instruction.Operand.Syntax.Location);
                     break;
             }
         }

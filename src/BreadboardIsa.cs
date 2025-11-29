@@ -22,7 +22,7 @@ public class BreadboardIsa : InstructionSet
 
         foreach (var variable in variables)
         {
-            memory[variable] = (byte)((int?)variable.Value ?? 0);
+            memory[variable] = (byte)(variable.Number?.Value ?? 0);
         }
     }
 

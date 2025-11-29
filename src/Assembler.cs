@@ -114,10 +114,10 @@ public sealed class Assembler
 
         foreach (var variable in assembly.DataVariables)
         {
-            int value = (int)(variable.Value ?? 0);
+            int value = variable.Number?.Value ?? 0;
             address = variables[variable];
 
-            Console.WriteLine($"    {address:b4} {value:b8} ; {variable.Name}: {variable.Value ?? 0}");
+            Console.WriteLine($"    {address:b4} {value:b8} ; {variable.Name}: {value}");
         }
 
         string GetNumber(BoundNumber number)

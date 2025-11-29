@@ -62,8 +62,15 @@ internal sealed class Binder
 
     private void DeclareVariable(VariableSyntax syntax)
     {
+        BoundNode? value = null;
+
+        if (syntax.ValueSyntax is not null)
+        {
+            value = BindNumber(syntax.ValueSyntax.Value);
+        }
+
         var name = syntax.Identifier.Text ?? "?";
-        var variable = new BoundVariable(syntax, name, syntax.ValueSyntax?.Value.Value);
+        var variable = new BoundVariable(syntax, name, value);
 
         if (!symbols.TryAdd(name, new BoundSymbol(name, variable)))
         {
